@@ -1,6 +1,6 @@
 # zmk-config
 
-Personal [ZMK](https://zmk.dev) firmware configuration for a **Corne** (CRKBD) split keyboard with **nice!view** displays running the [nice-view-gem](https://github.com/M165437/nice-view-gem) custom status screen.
+Personal [ZMK](https://zmk.dev) firmware configuration for a **Corne** (CRKBD) split keyboard with **nice!view** displays.
 
 ## Hardware
 
@@ -9,7 +9,7 @@ Personal [ZMK](https://zmk.dev) firmware configuration for a **Corne** (CRKBD) s
 | PCB       | Corne / CRKBD |
 | Controller | nice!nano v2 (`nice_nano_v2`) |
 | Display   | nice!view (SPI), via the `nice_view_adapter` shield |
-| Display UI | [nice-view-gem](https://github.com/M165437/nice-view-gem) animated status screen |
+| Display UI | Stock ZMK nice!view status screen |
 
 ## Firmware builds
 
@@ -17,10 +17,10 @@ Builds run automatically in GitHub Actions on every push (see [`.github/workflow
 
 | Artifact | Shields | Notes |
 |----------|---------|-------|
-| `corne_left_studio` | `corne_left nice_view_adapter nice_view_gem` | Central half. Includes **ZMK Studio** support |
-| (right) | `corne_right nice_view_adapter nice_view_gem` | Peripheral half |
+| `corne_left_studio` | `corne_left nice_view_adapter nice_view` | Central half. Includes **ZMK Studio** support |
+| (right) | `corne_right nice_view_adapter nice_view` | Peripheral half |
 
-Shield order matters: `nice_view_adapter` defines the `nice_view_spi` SPI node that `nice_view_gem` draws onto.
+Shield order matters: `nice_view_adapter` defines the `nice_view_spi` SPI node that `nice_view` draws onto.
 
 ### Getting the firmware
 
@@ -47,9 +47,9 @@ The left (central) half is built with [ZMK Studio](https://zmk.dev/docs/features
 
 Three layers, defined in [`config/corne.keymap`](config/corne.keymap):
 
-- **Default** — QWERTY alphas, mods, thumb keys (`GUI` / lower / `SPACE` · `ENTER` / raise / `ALT`)
+- **Default** — QWERTY alphas, mods, thumb keys (`ALT` / raise / `SPACE` · `ENTER` / lower / `ESC`)
 - **Lower** (`&mo 1`) — number row, Bluetooth profile selection, arrow keys, Studio unlock
-- **Raise** (`&mo 2`) — symbols and brackets
+- **Raise** (`&mo 2`) — symbols, brackets, arrows and a few F-keys
 
 ## Repo layout
 
@@ -70,8 +70,7 @@ CONFIG_ZMK_DISPLAY=y
 CONFIG_ZMK_DISPLAY_STATUS_SCREEN_CUSTOM=y
 ```
 
-[`config/west.yml`](config/west.yml) pins ZMK and `nice-view-gem` to matching revisions (`v0.3` / `v0.3.0`) — keep these aligned when upgrading.
+[`config/west.yml`](config/west.yml) pins ZMK to `v0.3`.
 
 - [ZMK Firmware](https://zmk.dev)
-- [nice-view-gem](https://github.com/M165437/nice-view-gem) by [@M165437](https://github.com/M165437)
 - [Corne keyboard](https://github.com/foostan/crkbd) by foostan
